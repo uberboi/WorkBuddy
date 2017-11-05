@@ -17,6 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Alarm"></activity>
+        <receiver android:name=".AlarmReceiver"/>
+        <service android:name=".AlarmRingService"
+            android:enabled="true">
+         </service>
     </application>
 
 </manifest>
