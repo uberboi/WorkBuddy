@@ -1,11 +1,17 @@
 package cmps121.workbuddy;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,8 +35,34 @@ public class AlarmRingService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
 
+        //setup intent
+        Intent intent_alarmActivity = new Intent(this.getApplicationContext(), Alarm.class);
+        PendingIntent pending_intent_mainActivity = PendingIntent.getActivity(this, 0, intent_alarmActivity, 0);
+        //Setup notifications
+        NotificationManager notManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+
+        NotificationCompat.Builder notification_popup = new NotificationCompat.Builder(this)
+                .setContentTitle("Alarm is going off!")
+                .setContentText("Click me!")
+                .setContentIntent(pending_intent_mainActivity)
+                .setAutoCancel(true)
+                .setSmallIcon(R.mipmap.ic_launcher_round);
+                //.build();
+
+
+        if(Build.VERSION.SDK_INT >=26) {
+            String channelId = "channel1";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel Channel = new NotificationChannel(channelId, "notification channel", importance);
+            Channel.enableLights(true);
+            notManager.createNotificationChannel(Channel);
+            notification_popup.setChannelId(channelId);
+        }
+
+
         //fetch extra boolean values
         Boolean state = intent.getExtras().getBoolean("switch");
+        assert state != null;
         Log.e("Ringtone state:", state.toString());
         if (state){
             startId = 1;
@@ -48,6 +80,8 @@ public class AlarmRingService extends Service {
             mp.start();
             this.isRunning = true;
             this.startId = 0;
+
+            notManager.notify(001, notification_popup.build());
 
         //if alarm is ringing and switch is turned off
         //turn off alarm
