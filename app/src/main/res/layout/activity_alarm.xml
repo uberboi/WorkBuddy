@@ -26,9 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/switchAlarm"
         android:layout_alignRight="@+id/switchAlarm"
-        android:layout_below="@+id/switchAlarm"
-        android:layout_marginEnd="39dp"
-        android:layout_marginRight="39dp"
-        android:layout_marginTop="56dp" />
+        android:layout_below="@+id/timePicker"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp" />
 </RelativeLayout>
 

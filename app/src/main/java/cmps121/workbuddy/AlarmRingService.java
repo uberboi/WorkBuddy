@@ -51,7 +51,7 @@ public class AlarmRingService extends Service {
         //Oreo requires channel for notification as well as running service in foreground for background services
         if(Build.VERSION.SDK_INT >=26) {
             String channelId = "channel1";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_LOW;
             NotificationChannel Channel = new NotificationChannel(channelId, "notification channel", importance);
             Channel.enableLights(true);
             notManager.createNotificationChannel(Channel);
