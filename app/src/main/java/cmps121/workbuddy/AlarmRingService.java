@@ -37,19 +37,18 @@ public class AlarmRingService extends Service {
 
         //setup intent
         Intent intent_alarmActivity = new Intent(this.getApplicationContext(), Alarm.class);
-        PendingIntent pending_intent_mainActivity = PendingIntent.getActivity(this, 0, intent_alarmActivity, 0);
+        PendingIntent pending_intent_alarmActivity = PendingIntent.getActivity(this, 0, intent_alarmActivity, 0);
         //Setup notifications
         NotificationManager notManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder notification_popup = new NotificationCompat.Builder(this)
                 .setContentTitle("Alarm is going off!")
-                .setContentText("Click me!")
-                .setContentIntent(pending_intent_mainActivity)
+                .setContentText("Click to turn off")
+                .setContentIntent(pending_intent_alarmActivity)
                 .setAutoCancel(true)
                 .setSmallIcon(R.mipmap.ic_launcher_round);
-                //.build();
 
-
+        //Oreo requires channel for notification as well as running service in foreground for background services
         if(Build.VERSION.SDK_INT >=26) {
             String channelId = "channel1";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
@@ -57,6 +56,15 @@ public class AlarmRingService extends Service {
             Channel.enableLights(true);
             notManager.createNotificationChannel(Channel);
             notification_popup.setChannelId(channelId);
+
+            NotificationCompat.Builder foregroundNotification = new NotificationCompat.Builder(this)
+                    .setContentTitle("Alarm is being accessed")
+                    .setContentText("Click to change")
+                    .setContentIntent(pending_intent_alarmActivity)
+                    .setAutoCancel(true)
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setChannelId(channelId);
+            startForeground(002, foregroundNotification.build());
         }
 
 
