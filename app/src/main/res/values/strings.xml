@@ -5,7 +5,7 @@
     <string name="Date_Selected">Date Selected: </string>
     <string name="add_event">Add Event to this Day </string>
     <string name="show_event">Show Events </string>
-    <string name="event">Homework 2\nLine2\nLine3\nLine4</string>
+    <string name="event">Homework 2\nDescription\nDueDate</string>
 
 
 

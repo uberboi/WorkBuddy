@@ -7,7 +7,7 @@
     tools:context=".EventsTab">
 
     <Button
-        android:id="@+id/event"
+        android:id="@+id/hwkbox"
         android:text="@string/event"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent">

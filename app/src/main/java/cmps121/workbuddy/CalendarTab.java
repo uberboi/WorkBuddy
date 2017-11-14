@@ -19,8 +19,8 @@ public class CalendarTab extends Fragment {
 
     private CalendarView mCalendarView;
     public static String date;
-    public static int day = 1;
-    public static int month = 1;
+    public static int day = 14;
+    public static int month = 11;
     public static int year = 2017;
     @Override
 
