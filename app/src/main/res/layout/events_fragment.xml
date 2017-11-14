@@ -6,8 +6,10 @@
     android:orientation="vertical"
     tools:context=".EventsTab">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/event"
+        android:text="@string/event"
         android:layout_height="wrap_content"
-        android:text="Events"/>
+        android:layout_width="fill_parent">
+    </Button>
 </LinearLayout>

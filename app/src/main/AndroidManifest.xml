@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,11 +18,14 @@
         </activity>
         <activity android:name=".Alarm"></activity>
         <activity android:name=".Calendarclass"></activity>
-
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".AddEventActivity"></activity>
         <receiver android:name=".AlarmReceiver"/>
         <service android:name=".AlarmRingService"
             android:enabled="true">
          </service>
-    </application>
 
+    </application>
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 </manifest>

@@ -55,4 +55,12 @@
         </LinearLayout>
     </android.support.v4.app.FragmentTabHost>
 
+    <Button
+        android:id="@+id/Addevent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tabHost"
+        android:layout_centerHorizontal="true"
+        android:text="Add Event" />
+
 </RelativeLayout>

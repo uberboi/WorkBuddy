@@ -18,8 +18,10 @@ import static android.content.ContentValues.TAG;
 public class CalendarTab extends Fragment {
 
     private CalendarView mCalendarView;
-    String date;
-
+    public static String date;
+    public static int day = 1;
+    public static int month = 1;
+    public static int year = 2017;
     @Override
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,7 +33,10 @@ public class CalendarTab extends Fragment {
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                date = (i1+1) + "/" + i2 + "/" + i;
+                day = i2;
+                month = i1;
+                year = i;
+                date = (i1+1) + "," + i2 + "," + i;
                 Log.d(TAG, "on SelectedDayChange: mm/dd/yyyy: " + date);
                 //i = year
                 //i1 = month, jan at 0
