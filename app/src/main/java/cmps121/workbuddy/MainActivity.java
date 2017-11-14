@@ -40,10 +40,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //Move to Alarm activity on button click
-    public void Opencalendar(View view){
-        Intent intent = new Intent(this, Calendarclass.class);
-        Button Calendar = (Button) findViewById(R.id.calendar_btn);
-        startActivity(intent);
-    }
+  
 }
