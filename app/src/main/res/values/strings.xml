@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">workbuddy</string>
     <string name="set_alarm">Set Alarm</string>
+    <string name="Calendar">Calendar</string>
+    <string name="Date_Selected">Date Selected: </string>
+    <string name="add_event">Add Event to this Day </string>
+    <string name="show_event">Show Events </string>
+
+
+
+
 </resources>

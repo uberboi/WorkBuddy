@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Alarm"></activity>
+        <activity android:name=".Calendarclass"></activity>
+
         <receiver android:name=".AlarmReceiver"/>
         <service android:name=".AlarmRingService"
             android:enabled="true">

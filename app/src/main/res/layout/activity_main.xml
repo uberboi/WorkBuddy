@@ -16,4 +16,17 @@
         android:layout_marginStart="10dp"
         android:onClick="setAlarm"
         android:text="@string/set_alarm" />
+
+    <Button
+        android:id="@+id/calendar_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/setAlarmButton"
+        android:layout_alignBottom="@+id/setAlarmButton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="68dp"
+        android:layout_marginRight="68dp"
+        android:onClick="Opencalendar"
+        android:text="@string/Calendar" />
 </RelativeLayout>
