@@ -47,17 +47,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentIntent(pending_intent_alarmActivity)
                 .setAutoCancel(true)
                 .setSmallIcon(R.mipmap.ic_launcher_round);
-        //.build();
-
-
-        if(Build.VERSION.SDK_INT >=26) {
-            String channelId = "channel1";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel Channel = new NotificationChannel(channelId, "notification channel", importance);
-            Channel.enableLights(true);
-            notManager.createNotificationChannel(Channel);
-            notification_popup.setChannelId(channelId);
-        }
 
         //start servuce
         context.startService(service_intent);
