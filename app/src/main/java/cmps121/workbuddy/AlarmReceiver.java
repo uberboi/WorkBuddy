@@ -34,21 +34,16 @@ public class AlarmReceiver extends BroadcastReceiver {
         //Pass the extra from alarm activity to AlarmRingService
         service_intent.putExtra("switch", extraValue);
 
-
         //setup intent
         Intent intent_alarmActivity = new Intent(context, Alarm.class);
         PendingIntent pending_intent_alarmActivity = PendingIntent.getActivity(context, 0, intent_alarmActivity, 0);
-        //Setup notifications
-        NotificationManager notManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
 
-        NotificationCompat.Builder notification_popup = new NotificationCompat.Builder(context)
-                .setContentTitle("Alarm is going off!")
-                .setContentText("Click me!")
-                .setContentIntent(pending_intent_alarmActivity)
-                .setAutoCancel(true)
-                .setSmallIcon(R.mipmap.ic_launcher_round);
-
-        //start servuce
-        context.startService(service_intent);
+        //start service
+        //Android Orea requires foreground service start if in background
+        if(Build.VERSION.SDK_INT >=26) {
+            context.startForegroundService(service_intent);
+        }else {
+            context.startService(service_intent);
+        }
     }
 }
