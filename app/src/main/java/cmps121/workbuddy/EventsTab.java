@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static android.content.ContentValues.TAG;
@@ -27,7 +29,11 @@ public class EventsTab extends Fragment {
     public String duedate = "";
     public String desciption = "";
     public String test = "";
-    private Button eventDes;
+    private Button addEvent;
+    ArrayList<String> listItems=new ArrayList<String>();
+    ArrayAdapter<String> adapter;
+
+    int counter = 0;
 
 
     @Override
@@ -36,20 +42,19 @@ public class EventsTab extends Fragment {
         // Inflate the layout for this fragment
         final View rootView =  inflater.inflate(R.layout.events_fragment, container, false);
 
-        eventDes = (Button)rootView.findViewById(R.id.hwkbox);
-        eventDes.setOnClickListener(new View.OnClickListener() {
+        addEvent = (Button)rootView.findViewById(R.id.addEvent);
+        addEvent.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                Intent nextpage = new Intent(getActivity(), EventDescription.class);
-
-
-
-                startActivity(nextpage);
+            public void onClick(View v){
+                listItems.add("test " + counter++);
+                adapter.notifyDataSetChanged();
             }
-
         });
 
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
+
         ListView listview = (ListView) rootView.findViewById(R.id.eventList);
+        listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> l, View v, int position, long id){
                 Log.i("ListView", "You clicked Item: " + id + " at position:" + position);
@@ -65,5 +70,4 @@ public class EventsTab extends Fragment {
 
         return rootView;
     }
-
 }
