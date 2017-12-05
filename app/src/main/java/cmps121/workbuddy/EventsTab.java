@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -47,6 +49,17 @@ public class EventsTab extends Fragment {
 
         });
 
+        ListView listview = (ListView) rootView.findViewById(R.id.eventList);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> l, View v, int position, long id){
+                Log.i("ListView", "You clicked Item: " + id + " at position:" + position);
+                Intent intent = new Intent(getActivity(), EventDescription.class);
+                intent.putExtra("position", position);
+                intent.putExtra("id", id);
+                startActivity(intent);
+            }
+
+        });
 
 
 
