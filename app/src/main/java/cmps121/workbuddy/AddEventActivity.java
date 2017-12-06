@@ -109,13 +109,10 @@ public class AddEventActivity extends AppCompatActivity {
                 String eventDescription = descriptionText.getText().toString();
                 String eventDate = dateText.getText().toString();
 
-                addData(eventName);
+                addData(eventName, eventDescription);
 
                 Intent intent = new Intent(AddEventActivity.this, MainActivity.class);
                 intent.putExtra("tab_index", "2");
-                intent.putExtra("event_name", eventName);
-                intent.putExtra("event_description", eventDescription);
-                intent.putExtra("event_date", eventDate);
                 startActivity(intent);
 
             }
@@ -124,8 +121,8 @@ public class AddEventActivity extends AppCompatActivity {
 
     }
 
-    public void addData(String newEntry) {
-        boolean insertData = mDatabaseHelper.addData(newEntry);
+    public void addData(String name, String description) {
+        boolean insertData = mDatabaseHelper.addData(name, description);
         if (insertData){
             toastMessage("Data inserted");
         }else{
