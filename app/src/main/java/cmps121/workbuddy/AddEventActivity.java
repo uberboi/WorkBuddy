@@ -75,6 +75,7 @@ public class AddEventActivity extends AppCompatActivity {
 
                 cr.insert(CalendarContract.Events.CONTENT_URI, values);*/
 
+                /****************************************************
                 Intent calIntent = new Intent(Intent.ACTION_INSERT);
                 calIntent.setType("vnd.android.cursor.item/event");
                 calIntent.putExtra(CalendarContract.Events.TITLE, text);
@@ -87,6 +88,7 @@ public class AddEventActivity extends AppCompatActivity {
                 calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
                         calDate.getTimeInMillis());
                 startActivity(calIntent);
+                 **********************************************************/
 
                 /*Intent donepage = new Intent(AddEventActivity.this, MainActivity.class);
 
