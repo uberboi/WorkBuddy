@@ -21,6 +21,14 @@
         android:hint="Description"/>
 
 
+    <EditText
+        android:id="@+id/Date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Date"/>
+
     <Button
         android:id="@+id/Done"
         android:layout_width="match_parent"

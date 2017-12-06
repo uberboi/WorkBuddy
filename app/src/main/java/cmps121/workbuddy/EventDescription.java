@@ -3,6 +3,7 @@ package cmps121.workbuddy;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 /**
  * Created by han.nguyen on 11/14/17.
@@ -14,6 +15,17 @@ public class EventDescription extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_description);
+        String eventName = getIntent().getStringExtra("event_name");
+        String eventDescription = getIntent().getStringExtra("event_description");
+        String eventDate = getIntent().getStringExtra("event_date");
+
+        TextView eName = (TextView) findViewById(R.id.eventname);
+        TextView eDescription = (TextView) findViewById(R.id.eventdescription);
+        TextView eDate = (TextView) findViewById(R.id.eventdate);
+
+        eName.setText(eventName);
+        eDescription.setText(eventDescription);
+        eDate.setText(eventDate);
     }
 
 

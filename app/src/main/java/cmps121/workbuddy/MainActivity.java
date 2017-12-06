@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
@@ -52,6 +53,15 @@ public class MainActivity extends AppCompatActivity {
                 ToDoTab.class, null);
         tabHost.addTab(tabHost.newTabSpec("Events").setIndicator("Events"),
                 EventsTab.class, null);
+
+        Intent receivedIntent = getIntent();
+        String tabIndex = receivedIntent.getStringExtra("tab_index");
+        if(tabIndex != null){
+            tabHost.setCurrentTab(Integer.valueOf(tabIndex));
+        }
+        //tabHost.setCurrentTab(2);
+
+
     }
 
 

@@ -35,6 +35,9 @@ public class EventsTab extends Fragment {
     ArrayAdapter<String> adapter;
     ListView listview;
 
+    private String eventDate;
+    private String eventDescription;
+    private String eventName;
     int counter = 0;
 
 
@@ -51,11 +54,18 @@ public class EventsTab extends Fragment {
             public void onClick(View v) {
                 //listItems.add("test " + counter++);
                 //adapter.notifyDataSetChanged();
-                populateListView();
-                addData("test" + counter++);
+
+                Intent nextpage = new Intent(getActivity(), AddEventActivity.class);
+                startActivity(nextpage);
+
+                //addData("test" + counter++);
+                //populateListView();
             }
         });
 
+        eventName = getActivity().getIntent().getStringExtra("event_name");
+        eventDescription = getActivity().getIntent().getStringExtra("event_description");
+        eventDate = getActivity().getIntent().getStringExtra("event_date");
         //adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
 
         listview = (ListView) rootView.findViewById(R.id.eventList);
@@ -97,16 +107,25 @@ public class EventsTab extends Fragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> l, View v, int position, long id) {
                 //Log.i("ListView", "You clicked Item: " + id + " at position:" + position);
-                //Intent intent = new Intent(getActivity(), EventDescription.class);
-                //intent.putExtra("position", position);
-                //intent.putExtra("id", id);
-                //startActivity(intent);
+                Intent intent = new Intent(getActivity(), EventDescription.class);
+                intent.putExtra("event_name", eventName);
+                intent.putExtra("event_description", eventDescription);
+                intent.putExtra("event_date", eventDate);
+                Log.e("event name", eventName);
+                Log.e("event description", eventDescription);
+                Log.e("event date", eventDate);
+
+                startActivity(intent);
+
+                /*
                 Cursor data = mDatabaseHelper.getItemID(l.getItemAtPosition(position).toString()); //get the id associated with that name
                 int itemID = -1;
                 while(data.moveToNext()){
                     itemID = data.getInt(0);
                 }
                 mDatabaseHelper.deleteName(itemID,l.getItemAtPosition(position).toString());
+                */
+
             }
 
         });
