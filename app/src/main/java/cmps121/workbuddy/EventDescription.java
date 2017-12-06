@@ -25,14 +25,17 @@ public class EventDescription extends AppCompatActivity {
         final String eventName = getIntent().getStringExtra("event_name");
         String eventDescription = getIntent().getStringExtra("event_description");
         String eventDate = getIntent().getStringExtra("event_date");
+        String eventTime = getIntent().getStringExtra("event_time");
 
         TextView eName = (TextView) findViewById(R.id.eventname);
         TextView eDescription = (TextView) findViewById(R.id.eventdescription);
         TextView eDate = (TextView) findViewById(R.id.eventdate);
+        TextView eTime = (TextView) findViewById(R.id.eventtime);
 
         eName.setText(eventName);
         eDescription.setText(eventDescription);
         eDate.setText(eventDate);
+        eTime.setText(eventTime);
 
         delete_button = (Button) findViewById(R.id.deleteEventButton);
         delete_button.setOnClickListener(new View.OnClickListener() {

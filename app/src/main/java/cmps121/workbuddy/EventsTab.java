@@ -38,6 +38,7 @@ public class EventsTab extends Fragment {
     private String eventDate;
     private String eventDescription;
     private String eventName;
+    private String eventTime;
     int counter = 0;
 
 
@@ -127,10 +128,14 @@ public class EventsTab extends Fragment {
                 while(data.moveToNext()){
                     eventName = data.getString(1);
                     eventDescription = data.getString(2);
+                    eventDate = data.getString(3);
+                    eventTime = data.getString(4);
                     //Log.e("description", EventDescription);
                     Intent intent = new Intent(getActivity(), EventDescription.class);
                     intent.putExtra("event_name", eventName);
                     intent.putExtra("event_description", eventDescription);
+                    intent.putExtra("event_date", eventDate);
+                    intent.putExtra("event_time", eventTime);
                     //intent.putExtra("event_date", eventDate);
                     //Log.e("event name", eventName);
                     //Log.e("event description", eventDescription);
@@ -143,10 +148,6 @@ public class EventsTab extends Fragment {
             }
 
         });
-    }
-
-    private void toastMessage(String message){
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }
 

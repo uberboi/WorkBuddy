@@ -105,11 +105,13 @@ public class AddEventActivity extends AppCompatActivity {
                 EditText nameText = (EditText)findViewById(R.id.Name);
                 EditText descriptionText = (EditText)findViewById(R.id.Description);
                 EditText dateText = (EditText) findViewById(R.id.Date);
+                EditText timeText = (EditText) findViewById(R.id.Time);
                 String eventName = nameText.getText().toString();
                 String eventDescription = descriptionText.getText().toString();
                 String eventDate = dateText.getText().toString();
+                String eventTime = timeText.getText().toString();
 
-                addData(eventName, eventDescription);
+                mDatabaseHelper.addData(eventName, eventDescription, eventDate, eventTime);
 
                 Intent intent = new Intent(AddEventActivity.this, MainActivity.class);
                 intent.putExtra("tab_index", "2");
@@ -119,18 +121,5 @@ public class AddEventActivity extends AppCompatActivity {
 
         });
 
-    }
-
-    public void addData(String name, String description) {
-        boolean insertData = mDatabaseHelper.addData(name, description);
-        if (insertData){
-            toastMessage("Data inserted");
-        }else{
-            toastMessage("Something went wrong");
-        }
-    }
-
-    private void toastMessage(String message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

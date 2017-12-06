@@ -23,27 +23,11 @@ public class MainActivity extends AppCompatActivity {
 
     private PopupWindow eventwindow;
     private RelativeLayout mRelativeLayout;
-    public void setAdd_event(){
-            add_event = (Button)findViewById(R.id.Addevent);
-        add_event.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent nextpage = new Intent(MainActivity.this, AddEventActivity.class);
-
-                startActivity(nextpage);
-            }
-
-        });
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setAdd_event();
-
-
 
         tabHost = (FragmentTabHost)findViewById(R.id.tabHost);
         tabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);

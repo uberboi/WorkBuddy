@@ -20,7 +20,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL1 = "ID";
     private static final String COL2 = "name";
     private static final String COL3 = "description";
-
+    private static final String COL4 = "date";
+    private static final String COL5 = "time";
 
     public DatabaseHelper(Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -31,7 +32,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (" +
                 COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL2 + " TEXT," +
-                COL3 + " TEXT)";
+                COL3 + " TEXT," +
+                COL4 + " TEXT," +
+                COL5 + " TEXT)";
         db.execSQL(createTable);
     }
 
@@ -41,11 +44,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String item, String item2) {
+    public boolean addData(String item, String item2, String item3, String item4) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL2, item);
         contentValues.put(COL3, item2);
+        contentValues.put(COL4, item3);
+        contentValues.put(COL5, item4);
 
         Log.e(TAG, "addData: Adding " + item + item2 + " to " + TABLE_NAME);
 
@@ -77,7 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public Cursor getItemID(String name){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT " + COL1 + "," + COL2 + "," + COL3 + " FROM " + TABLE_NAME +
+        String query = "SELECT " + COL1 + "," + COL2 + "," + COL3 + "," + COL4 + "," + COL5 + " FROM " + TABLE_NAME +
                 " WHERE " + COL2 + " = '" + name + "'";
         Cursor data = db.rawQuery(query, null);
         return data;
