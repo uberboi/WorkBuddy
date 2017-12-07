@@ -20,6 +20,9 @@
         <activity android:name=".Calendarclass"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".AddEventActivity"></activity>
+        <activity android:name=".AddtodoActivity"></activity>
+        <activity android:name=".todoDescription"></activity>
+
         <activity android:name=".EventDescription"></activity>
         <receiver android:name=".AlarmReceiver"/>
         <service android:name=".AlarmRingService"
