@@ -162,15 +162,20 @@ public class LoginActivity extends AppCompatActivity {
         eventName = (assign.getName().toString());
         eventDescription = (assign.getDescription().toString());
         eventDate = "";
-        eventTime = "10:00PM";
+        eventTime = "";
         String test;
         if(assign.getDueAt()!=null) {
             test = (assign.getDueAt().toString());
             SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            SimpleDateFormat dfTime = new SimpleDateFormat("HH:mm");
             Date blah = new Date();
             try {
                 blah = jsonParse(test);
                 Log.e("blah", String.valueOf(blah));
+
+                String blahTime = dfTime.format(blah);
+                Log.e("blah2", blahTime);
+                eventTime = blahTime;
                 String blahString = df.format(blah);
                 Log.e("blah2", blahString);
                 eventDate = blahString;
