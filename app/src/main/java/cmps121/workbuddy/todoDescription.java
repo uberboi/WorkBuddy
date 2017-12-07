@@ -28,9 +28,9 @@ public class todoDescription extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todo_description);
         mDatabaseHelper = new todoDatabaseHelper(this);
-        todoeventName = getIntent().getStringExtra("todoevent_name");
-        todoeventDescription = getIntent().getStringExtra("todoevent_description");
-        todoeventDate = getIntent().getStringExtra("todoevent_date");
+        todoeventName = getIntent().getStringExtra("todo_name");
+        todoeventDescription = getIntent().getStringExtra("todo_description");
+        todoeventDate = getIntent().getStringExtra("todo_date");
 
         TextView eName = findViewById(R.id.todoeventname);
         TextView eDescription = findViewById(R.id.todoeventdescription);

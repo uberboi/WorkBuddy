@@ -116,9 +116,9 @@ public class ToDoTab extends Fragment {
                 todoeventDate = data.getString(data.getColumnIndex("date"));
                 data.close();
                 Intent intent = new Intent(getActivity(), todoDescription.class);
-                intent.putExtra("todoevent_name", todoeventName);
-                intent.putExtra("todoevent_description", todoeventDescription);
-                intent.putExtra("todoevent_date", todoeventDate);
+                intent.putExtra("todo_name", todoeventName);
+                intent.putExtra("todo_description", todoeventDescription);
+                intent.putExtra("todo_date", todoeventDate);
                 startActivity(intent);
 
             }

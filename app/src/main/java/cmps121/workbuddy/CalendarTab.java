@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.Toast;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
@@ -26,12 +27,19 @@ import java.util.Date;
 public class CalendarTab extends Fragment {
 
     private CalendarView mCalendarView;
+
     DatabaseHelper mDatabaseHelper;
     Date eventDate = new Date();
     private String eventDateString;
     private String eventDescription;
     private String eventName;
     private String eventTime;
+
+    todoDatabaseHelper mtodoDatabaseHelper;
+    Date todoDate = new Date();
+    private String todoDateString;
+    private String todoName;
+    private String todoDescription;
 
     @Override
 
@@ -41,13 +49,14 @@ public class CalendarTab extends Fragment {
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.calendar_fragment, container, false);
         mDatabaseHelper = new DatabaseHelper(getActivity());
+        mtodoDatabaseHelper = new todoDatabaseHelper(getActivity());
 
         final SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 
         final CaldroidListener listener = new CaldroidListener() {
 
             @Override
-            public void onSelectDate(Date date, View view) {
+            public void onLongClickDate(Date date, View view) {
                 Cursor data = mDatabaseHelper.getItemFromDate(String.valueOf(formatter.format(date))); //get the id associated with that name
                 while(data.moveToNext()){
                     eventName = data.getString(1);
@@ -69,6 +78,28 @@ public class CalendarTab extends Fragment {
                     }
                 }
             }
+
+            @Override
+            public void onSelectDate(Date date, View view) {
+                Cursor tododata = mtodoDatabaseHelper.getItemFromDate(String.valueOf(formatter.format(date))); //get the id associated with that name
+                while(tododata.moveToNext()){
+                    todoName = tododata.getString(1);
+                    todoDescription = tododata.getString(2);
+                    todoDateString = tododata.getString(3);
+                    if(todoName.equals("")){
+                        Log.e("todo", "does not exist");
+                    }else {
+                        Log.e("todo name", todoName);
+                        Log.e("todo description", todoDescription);
+                        Log.e("todo date", todoDateString);
+                        Intent intent = new Intent(getActivity(), todoDescription.class);
+                        intent.putExtra("todo_name", todoName);
+                        intent.putExtra("todo_description", todoDescription);
+                        intent.putExtra("todo_date", todoDateString);
+                        startActivity(intent);
+                    }
+                }
+            }
         };
 
         CaldroidFragment caldroidFragment = new CaldroidFragment();
@@ -86,6 +117,20 @@ public class CalendarTab extends Fragment {
             }else {
                 eventDate = ConvertToDate(data.getString(3));
                 caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.event), eventDate);
+                caldroidFragment.refreshView();
+            }
+
+        }
+
+        Cursor tododata = mtodoDatabaseHelper.getData();
+        while(tododata.moveToNext()){
+            Log.e("todo", tododata.getString(3));
+            if(tododata.getString(3).equals("")){
+                Log.e("todo", "todo has no date");
+            }else {
+                todoDate = ConvertToDate(tododata.getString(3));
+
+                caldroidFragment.setTextColorForDate(R.color.blue, todoDate);
                 caldroidFragment.refreshView();
             }
 
