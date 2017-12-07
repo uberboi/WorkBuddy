@@ -32,6 +32,7 @@ public class EventsTab extends Fragment {
     DatabaseHelper mDatabaseHelper;
     private Button addEvent;
     ArrayList<String> listItems;
+    ArrayList<String> listItems2;
     ArrayAdapter<String> adapter;
     ListView listview;
 
@@ -39,8 +40,6 @@ public class EventsTab extends Fragment {
     private String eventDescription;
     private String eventName;
     private String eventTime;
-    int counter = 0;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,28 +100,28 @@ public class EventsTab extends Fragment {
     private void populateListView(){
         Cursor data = mDatabaseHelper.getData();
         listItems  = new ArrayList<String>();
+        listItems2  = new ArrayList<String>();
         while(data.moveToNext()){
             listItems.add(data.getString(1));
+            listItems2.add(data.getString(3));
+            Log.e("test", data.getString(3));
         }
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, listItems){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                text1.setText(listItems.get(position));
+                text2.setText(listItems2.get(position));
+                return view;
+            }
+        };
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-                //Log.i("ListView", "You clicked Item: " + id + " at position:" + position);
-
-                /*
-                Intent intent = new Intent(getActivity(), EventDescription.class);
-                intent.putExtra("event_name", eventName);
-                intent.putExtra("event_description", eventDescription);
-                intent.putExtra("event_date", eventDate);
-                Log.e("event name", eventName);
-                Log.e("event description", eventDescription);
-                Log.e("event date", eventDate);
-
-                startActivity(intent);
-                */
-
 
                 Cursor data = mDatabaseHelper.getItemID(l.getItemAtPosition(position).toString()); //get the id associated with that name
                 while(data.moveToNext()){

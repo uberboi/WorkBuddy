@@ -88,17 +88,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
-    /**
-     * Updates the name field
-     * @param newName
-     * @param id
-     * @param oldName
-     */
-    public void updateName(String newName, int id, String oldName){
+    public Cursor getItemFromDate(String date){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "UPDATE " + TABLE_NAME + " SET " + COL2 +
-                " = '" + newName + "' WHERE " + COL1 + " = '" + id + "'" +
-                " AND " + COL2 + " = '" + oldName + "'";
+        String query = "SELECT " + COL1 + "," + COL2 + "," + COL3 + "," + COL4 + "," + COL5 + " FROM " + TABLE_NAME +
+                " WHERE " + COL4 + " = '" + date + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+
+    /**
+     * Updates event
+     */
+    public void updateData(String newName, String newDescription, String newDate, String newTime,
+                           String oldName, String oldDescription, String oldDate, String oldTime){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + TABLE_NAME +
+                " SET " + COL2 + " = '" + newName + "'" +
+                ", " + COL3 + " = '" + newDescription + "'" +
+                ", " + COL4 + " = '" + newDate  + "'" +
+                ", " + COL5 + " = '" + newTime + "'" +
+                " WHERE " + COL2 + " = '" + oldName + "'" +
+                " AND " + COL3 + " = '" + oldDescription + "'" +
+                " AND " + COL4 + " = '" + oldDate + "'" +
+                " AND " + COL5 + " = '" + oldTime + "'";
         Log.d(TAG, "updateName: query: " + query);
         Log.d(TAG, "updateName: Setting name to " + newName);
         db.execSQL(query);
