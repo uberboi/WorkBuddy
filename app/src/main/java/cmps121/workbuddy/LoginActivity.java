@@ -65,8 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                     // close the file
 
                     out.close();
-
-                    Toast.makeText(getApplicationContext(),"Login Saved",Toast.LENGTH_LONG).show();
                 }
 
                 catch (java.io.IOException e) {
@@ -78,12 +76,20 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
 
+                if(ACCESS_TOKEN.equals("")){
+                    Toast.makeText(getApplicationContext(), "Please enter access token",Toast.LENGTH_LONG).show();
 
-                addCanvasData();
+                }else {
 
-                Intent donepage = new Intent(LoginActivity.this, MainActivity.class);
 
-                startActivity(donepage);
+                    Toast.makeText(getApplicationContext(),"Login Saved",Toast.LENGTH_LONG).show();
+                    //mDatabaseHelper.addData(ACCESS_TOKEN, "", "", "");
+                    addCanvasData();
+
+                    Intent donepage = new Intent(LoginActivity.this, MainActivity.class);
+
+                    startActivity(donepage);
+                }
             }
 
         });
