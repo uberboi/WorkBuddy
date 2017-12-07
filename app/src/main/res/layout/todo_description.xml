@@ -9,13 +9,14 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
+        android:layout_alignParentLeft="true"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/rounded_border_textview"
-        android:text="  To-Do"
         android:textColor="#000000"
         android:textSize="30sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="To-Do"
         android:textStyle="bold" />
 
     <TextView
@@ -37,12 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-
         android:layout_marginTop="105dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
         android:text="TextView"
         android:textColor="#000000" />
 
@@ -64,12 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/rounded_border_textview"
         android:layout_marginTop="185dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
         android:textColor="#000000"
         android:text="TextView" />
 
@@ -77,12 +68,8 @@
         android:id="@+id/todoeventdatelabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/edittodoEventButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="37dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="240dp"
         android:text="Date"
         android:textColor="#000000"
         android:textSize="18sp"
@@ -94,14 +81,8 @@
         android:id="@+id/todoeventdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/edittodoEventButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/rounded_border_textview"
-        android:paddingBottom="10dp"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
-        android:paddingTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="265dp"
         android:text="TextView"
         android:textColor="#000000" />
 
