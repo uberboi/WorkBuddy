@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public Cursor getData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME;
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL4 + " ASC";
         Cursor data = db.rawQuery(query, null);
         return data;
     }
