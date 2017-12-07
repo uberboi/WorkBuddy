@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 
+import com.roomorama.caldroid.CaldroidFragment;
+
+import java.util.Calendar;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -26,8 +30,22 @@ public class CalendarTab extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.calendar_fragment, container, false);
+
+        CaldroidFragment caldroidFragment = new CaldroidFragment();
+        Bundle args = new Bundle();
+        Calendar cal = Calendar.getInstance();
+        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+        caldroidFragment.setArguments(args);
+
+        android.support.v4.app.FragmentTransaction t = getChildFragmentManager().beginTransaction();
+        t.replace(R.id.calendarView, caldroidFragment);
+        t.commit();
+
+        /*
         mCalendarView = (CalendarView)rootView.findViewById(R.id.calendarView);
 
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -44,7 +62,7 @@ public class CalendarTab extends Fragment {
             }
 
         });
-
+       */
 
         return rootView;
     }
