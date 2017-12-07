@@ -117,7 +117,7 @@ public class CalendarTab extends Fragment {
             }else {
                 eventDate = ConvertToDate(data.getString(3));
                 caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.event), eventDate);
-                caldroidFragment.refreshView();
+                //caldroidFragment.refreshView();
             }
 
         }
@@ -131,10 +131,11 @@ public class CalendarTab extends Fragment {
                 todoDate = ConvertToDate(tododata.getString(3));
 
                 caldroidFragment.setTextColorForDate(R.color.blue, todoDate);
-                caldroidFragment.refreshView();
+                //caldroidFragment.refreshView();
             }
 
         }
+        caldroidFragment.refreshView();
 
         android.support.v4.app.FragmentTransaction t = getChildFragmentManager().beginTransaction();
         t.replace(R.id.calendarView, caldroidFragment);
