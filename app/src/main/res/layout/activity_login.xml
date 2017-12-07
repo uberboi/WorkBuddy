@@ -18,4 +18,10 @@
         android:layout_height="wrap_content"
         android:text="Login" />
 
+    <Button
+        android:id="@+id/Help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="How to get Access Token" />
+
 </LinearLayout>

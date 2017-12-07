@@ -1,6 +1,7 @@
 package cmps121.workbuddy;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,6 +34,7 @@ import static android.content.ContentValues.TAG;
 public class LoginActivity extends AppCompatActivity {
 
     public Button login_button;
+    public Button help_button;
 
     DatabaseHelper mDatabaseHelper;
 
@@ -75,11 +77,26 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
 
+
+
                 addCanvasData();
 
                 Intent donepage = new Intent(LoginActivity.this, MainActivity.class);
 
                 startActivity(donepage);
+            }
+
+        });
+
+        help_button = (Button) findViewById(R.id.Help);
+        help_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+
+            public void onClick(View v) {
+                Uri uri = Uri.parse("https://guides.instructure.com/s/2204/m/4214/l/724194-how-do-i-obtain-an-api-access-token-for-an-account");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
             }
 
         });
