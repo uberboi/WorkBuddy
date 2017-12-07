@@ -52,50 +52,20 @@ public class EventsTab extends Fragment {
         addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //listItems.add("test " + counter++);
-                //adapter.notifyDataSetChanged();
 
                 Intent nextpage = new Intent(getActivity(), AddEventActivity.class);
                 startActivity(nextpage);
 
-                //addData("test" + counter++);
-                //populateListView();
             }
         });
-
-        //eventName = getActivity().getIntent().getStringExtra("event_name");
-        //eventDescription = getActivity().getIntent().getStringExtra("event_description");
         eventDate = getActivity().getIntent().getStringExtra("event_date");
-        //adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
 
         listview = (ListView) rootView.findViewById(R.id.eventList);
         populateListView();
-        //listview.setAdapter(adapter);
-        /*listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-                Log.i("ListView", "You clicked Item: " + id + " at position:" + position);
-                Intent intent = new Intent(getActivity(), EventDescription.class);
-                intent.putExtra("position", position);
-                intent.putExtra("id", id);
-                startActivity(intent);
-            }
-
-        });*/
 
 
         return rootView;
     }
-
-    /*
-    public void addData(String newEntry) {
-        boolean insertData = mDatabaseHelper.addData(newEntry);
-        if (insertData){
-            toastMessage("Data inserted");
-        }else{
-            toastMessage("Something went wrong");
-        }
-    }
-    */
 
     private void populateListView(){
         Cursor data = mDatabaseHelper.getData();
