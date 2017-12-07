@@ -49,62 +49,6 @@ public class AddEventActivity extends AppCompatActivity {
 
     final int MY_PERMISSION_REQUEST_WRITE_CALENDAR = 2;
 
-    //Save to file to save info. Based on Professor's sample code
-    public void init() {
-        /*Intent calIntent = new Intent(Intent.ACTION_INSERT);
-        calIntent.setData(CalendarContract.Events.CONTENT_URI);
-        startActivity(calIntent);*/
-
-
-
-
-               /* ContentResolver cr = getContentResolver();
-                ContentValues contentValues = new ContentValues();
-
-                Calendar beginTime = Calendar.getInstance();
-                beginTime.set(2017, 11, 14, 9, 30);
-
-                Calendar endTime = Calendar.getInstance();
-                endTime.set(2017, 11, 14, 7, 35);
-
-                ContentValues values = new ContentValues();
-                values.put(CalendarContract.Events.DTSTART, beginTime.getTimeInMillis());
-                values.put(CalendarContract.Events.DTEND, endTime.getTimeInMillis());
-                values.put(CalendarContract.Events.TITLE, "Tech Stores");
-                values.put(CalendarContract.Events.DESCRIPTION, "Successful Startups");
-                values.put(CalendarContract.Events.CALENDAR_ID, 2);
-                values.put(CalendarContract.Events.EVENT_TIMEZONE, "Europe/London");
-                values.put(CalendarContract.Events.EVENT_LOCATION, "London");
-                values.put(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, "1");
-                values.put(CalendarContract.Events.GUESTS_CAN_SEE_GUESTS, "1");
-
-                if (ActivityCompat.checkSelfPermission(AddEventActivity.this, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(AddEventActivity.this, new String[]{Manifest.permission.WRITE_CALENDAR}, MY_PERMISSION_REQUEST_WRITE_CALENDAR);
-                }
-
-                cr.insert(CalendarContract.Events.CONTENT_URI, values);*/
-
-                /****************************************************
-                Intent calIntent = new Intent(Intent.ACTION_INSERT);
-                calIntent.setType("vnd.android.cursor.item/event");
-                calIntent.putExtra(CalendarContract.Events.TITLE, text);
-                //calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "My Beach House");
-                calIntent.putExtra(CalendarContract.Events.DESCRIPTION, text2);
-                GregorianCalendar calDate = new GregorianCalendar(CalendarTab.year,CalendarTab.month,CalendarTab.day);
-                calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
-                calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
-                        calDate.getTimeInMillis());
-                calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
-                        calDate.getTimeInMillis());
-                startActivity(calIntent);
-                 **********************************************************/
-
-                /*Intent donepage = new Intent(AddEventActivity.this, MainActivity.class);
-
-                startActivity(donepage);*/
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +85,6 @@ public class AddEventActivity extends AppCompatActivity {
             oldEventTime = timeText.getText().toString();
 
         }
-        //init();
 
         mDatabaseHelper = new DatabaseHelper(this);
         done_button = (Button) findViewById(R.id.Done);
@@ -159,16 +102,6 @@ public class AddEventActivity extends AppCompatActivity {
                     mDatabaseHelper.updateData(eventName, eventDescription, eventDate, eventTime,
                                                 oldEventName, oldEventDescription, oldEventDate, oldEventTime);
 
-                    Log.e("update", String.valueOf(update));
-                    Log.e("name", eventName);
-                    Log.e("description", eventDescription);
-                    Log.e("date", eventDate);
-                    Log.e("time", eventTime);
-
-                    Log.e("old name", oldEventName);
-                    Log.e("old description", oldEventDescription);
-                    Log.e("old date", oldEventDate);
-                    Log.e("old time", oldEventTime);
                 }else{
                     mDatabaseHelper.addData(eventName, eventDescription, eventDate, eventTime);
                 }

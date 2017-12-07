@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date"
-        android:hint="Date"/>
+        android:hint="Date: MM/DD/YYYY"/>
 
     <EditText
         android:id="@+id/Time"

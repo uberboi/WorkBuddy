@@ -103,6 +103,7 @@ public class EventsTab extends Fragment {
         listItems  = new ArrayList<String>();
         while(data.moveToNext()){
             listItems.add(data.getString(1));
+            Log.e("test", data.getString(1));
         }
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
         listview.setAdapter(adapter);
