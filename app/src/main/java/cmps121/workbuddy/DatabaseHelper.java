@@ -44,15 +44,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String item, String item2, String item3, String item4) {
+    public boolean addData(String name, String description, String date, String time) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL2, item);
-        contentValues.put(COL3, item2);
-        contentValues.put(COL4, item3);
-        contentValues.put(COL5, item4);
+        contentValues.put(COL2, name);
+        contentValues.put(COL3, description);
+        contentValues.put(COL4, date);
+        contentValues.put(COL5, time);
 
-        Log.e(TAG, "addData: Adding " + item + item2 + " to " + TABLE_NAME);
+        Log.e(TAG, "addData: Adding " + name + description + " to " + TABLE_NAME);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
 
