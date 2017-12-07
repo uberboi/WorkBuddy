@@ -15,17 +15,23 @@ import android.widget.TextView;
 public class EventDescription extends AppCompatActivity {
 
     public Button delete_button;
+    public Button edit_button;
     DatabaseHelper mDatabaseHelper;
+
+    String eventName;
+    String eventDescription;
+    String eventDate;
+    String eventTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_description);
         mDatabaseHelper = new DatabaseHelper(this);
-        final String eventName = getIntent().getStringExtra("event_name");
-        String eventDescription = getIntent().getStringExtra("event_description");
-        String eventDate = getIntent().getStringExtra("event_date");
-        String eventTime = getIntent().getStringExtra("event_time");
+        eventName = getIntent().getStringExtra("event_name");
+        eventDescription = getIntent().getStringExtra("event_description");
+        eventDate = getIntent().getStringExtra("event_date");
+        eventTime = getIntent().getStringExtra("event_time");
 
         TextView eName = (TextView) findViewById(R.id.eventname);
         TextView eDescription = (TextView) findViewById(R.id.eventdescription);
@@ -50,6 +56,23 @@ public class EventDescription extends AppCompatActivity {
             }
 
         });
+
+        edit_button = (Button) findViewById(R.id.editEventButton);
+        edit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EventDescription.this, AddEventActivity.class);
+                intent.putExtra("edit_button", "edit");
+                intent.putExtra("name", eventName);
+                intent.putExtra("description", eventDescription);
+                intent.putExtra("date", eventDate);
+                intent.putExtra("time", eventTime);
+
+                startActivity(intent);
+            }
+        });
+
+
 
     }
 
