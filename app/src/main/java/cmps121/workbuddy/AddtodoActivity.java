@@ -29,42 +29,74 @@ import java.util.TimeZone;
 public class AddtodoActivity extends AppCompatActivity {
 
     todoDatabaseHelper mDatabaseHelper;
+    Boolean update = false;
 
     public Button done_button;
+    EditText nameText;
+    EditText descriptionText;
+    EditText dateText;
+
+    String eventName;
+    String eventDescription;
+    String eventDate;
+
+    String oldEventName;
+    String oldEventDescription;
+    String oldEventDate;
+
     final int MY_PERMISSION_REQUEST_WRITE_CALENDAR = 2;
-
-    //Save to file to save info. Based on Professor's sample code
-    public void init() {
-
-    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_event);
-        /*if (ActivityCompat.checkSelfPermission(AddtodoActivity.this, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(AddtodoActivity.this, new String[]{Manifest.permission.WRITE_CALENDAR}, MY_PERMISSION_REQUEST_WRITE_CALENDAR);
-        }*/
-        //init();
+        setContentView(R.layout.add_todo);
+
+        nameText = (EditText)findViewById(R.id.Name);
+        descriptionText = (EditText)findViewById(R.id.Description);
+        dateText = (EditText) findViewById(R.id.Date);
+
+        Intent receivedIntent = getIntent();
+        Bundle extras = receivedIntent.getExtras();
+        if(extras == null){
+            Log.e("intent","null extras");
+        }else{
+            Log.e("intent", "no null extras");
+            update = true;
+            eventName = extras.getString("name");
+            eventDescription = extras.getString("description");
+            eventDate = extras.getString("date");
+
+            nameText.setText(eventName);
+            descriptionText.setText(eventDescription);
+            dateText.setText(eventDate);
+
+            oldEventName = nameText.getText().toString();
+            oldEventDescription = descriptionText.getText().toString();
+            oldEventDate = dateText.getText().toString();
+
+        }
+
         mDatabaseHelper = new todoDatabaseHelper(this);
         done_button = (Button) findViewById(R.id.Done);
         done_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText nameText = (EditText)findViewById(R.id.Name);
-                EditText descriptionText = (EditText)findViewById(R.id.Description);
-                EditText dateText = (EditText) findViewById(R.id.Date);
-               // EditText timeText = (EditText) findViewById(R.id.Time);
-                String eventName = nameText.getText().toString();
-                String eventDescription = descriptionText.getText().toString();
-                String eventDate = dateText.getText().toString();
+                eventName = nameText.getText().toString();
+                eventDescription = descriptionText.getText().toString();
+                eventDate = dateText.getText().toString();
                // String eventTime = timeText.getText().toString();
+                if(update == true) {
+                    Log.e("update", "updating record");
+                    mDatabaseHelper.updateData(eventName, eventDescription, eventDate,
+                            oldEventName, oldEventDescription, oldEventDate);
 
-                mDatabaseHelper.addData(eventName, eventDescription, eventDate);
+                }else{
+                    mDatabaseHelper.addData(eventName, eventDescription, eventDate);
+                }
 
                 Intent intent = new Intent(AddtodoActivity.this, MainActivity.class);
-                intent.putExtra("tab_index", "2");
+                intent.putExtra("tab_index", "1");
                 startActivity(intent);
 
             }

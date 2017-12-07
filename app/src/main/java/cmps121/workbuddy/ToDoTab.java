@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -30,15 +31,13 @@ public class ToDoTab extends Fragment {
     todoDatabaseHelper mDatabaseHelper;
     private Button addTodoEvent;
     ArrayList<String> listItems;
+    ArrayList<String> listItems2;
     ArrayAdapter<String> adapter;
     ListView listview;
 
     private String todoeventDate;
     private String todoeventDescription;
     private String todoeventName;
-    private String todoeventTime;
-    int counter = 0;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,21 +50,11 @@ public class ToDoTab extends Fragment {
         addTodoEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //listItems.add("test " + counter++);
-                //adapter.notifyDataSetChanged();
 
                 Intent nextpage = new Intent(getActivity(), AddtodoActivity.class);
                 startActivity(nextpage);
-
-                //addData("test" + counter++);
-                //populateListView();
             }
         });
-
-        //eventName = getActivity().getIntent().getStringExtra("event_name");
-        //eventDescription = getActivity().getIntent().getStringExtra("event_description");
-        todoeventDate = getActivity().getIntent().getStringExtra("event_date");
-        //adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
 
         listview = (ListView) rootView.findViewById(R.id.todoeventList);
         populateListView();
@@ -75,24 +64,26 @@ public class ToDoTab extends Fragment {
         return rootView;
     }
 
-    /*
-    public void addData(String newEntry) {
-        boolean insertData = mDatabaseHelper.addData(newEntry);
-        if (insertData){
-            toastMessage("Data inserted");
-        }else{
-            toastMessage("Something went wrong");
-        }
-    }
-    */
-
     private void populateListView(){
         Cursor data = mDatabaseHelper.getData();
         listItems  = new ArrayList<String>();
+        listItems2  = new ArrayList<String>();
         while(data.moveToNext()){
             listItems.add(data.getString(1));
+            listItems2.add(data.getString(3));
         }
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_2, android.R.id.text1, listItems){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                text1.setText(listItems.get(position));
+                text2.setText(listItems2.get(position));
+                return view;
+            }
+        };
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -125,32 +116,10 @@ public class ToDoTab extends Fragment {
                 todoeventDate = data.getString(data.getColumnIndex("date"));
                 data.close();
                 Intent intent = new Intent(getActivity(), todoDescription.class);
-                intent.putExtra("event_name", todoeventName);
-                intent.putExtra("event_description", todoeventDescription);
-                intent.putExtra("event_date", todoeventDate);
+                intent.putExtra("todoevent_name", todoeventName);
+                intent.putExtra("todoevent_description", todoeventDescription);
+                intent.putExtra("todoevent_date", todoeventDate);
                 startActivity(intent);
-
-               /* Cursor data = mDatabaseHelper.getItemID(val); //get the id associated with that name
-
-                while(data.moveToNext()){
-                    todoeventName = data.getString(1);
-                    todoeventDescription = data.getString(2);
-                    todoeventDate = data.getString(3);
-                   // todoeventTime = data.getString(4);
-                    //Log.e("description", EventDescription);
-                    Intent intent = new Intent(getActivity(), todoDescription.class);
-                    intent.putExtra("event_name", todoeventName);
-                    intent.putExtra("event_description", todoeventDescription);
-                    intent.putExtra("event_date", todoeventDate);
-                    //intent.putExtra("event_time", eventTime);
-                    //intent.putExtra("event_date", eventDate);
-                    //Log.e("event name", eventName);
-                    //Log.e("event description", eventDescription);
-                    //Log.e("event date", eventDate);
-
-                    startActivity(intent);
-                }*/
-
 
             }
 

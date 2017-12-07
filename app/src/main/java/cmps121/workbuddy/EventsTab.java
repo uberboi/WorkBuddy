@@ -58,7 +58,6 @@ public class EventsTab extends Fragment {
 
             }
         });
-        eventDate = getActivity().getIntent().getStringExtra("event_date");
 
         listview = (ListView) rootView.findViewById(R.id.eventList);
         populateListView();

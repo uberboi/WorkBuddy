@@ -15,55 +15,59 @@ import android.widget.TextView;
 public class todoDescription extends AppCompatActivity {
 
     public Button delete_button;
+    public Button edit_button;
     todoDatabaseHelper mDatabaseHelper;
+
+    String todoeventName;
+    String todoeventDescription;
+    String todoeventDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todo_description);
         mDatabaseHelper = new todoDatabaseHelper(this);
-        final String eventName = getIntent().getStringExtra("event_name");
-        String eventDescription = getIntent().getStringExtra("event_description");
-        String eventDate = getIntent().getStringExtra("event_date");
-       // String eventTime = getIntent().getStringExtra("event_time");
+        todoeventName = getIntent().getStringExtra("todoevent_name");
+        todoeventDescription = getIntent().getStringExtra("todoevent_description");
+        todoeventDate = getIntent().getStringExtra("todoevent_date");
 
-
-        System.out.println(eventName);
-        System.out.println(eventDescription);
-        System.out.println(eventDate);
         TextView eName = findViewById(R.id.todoeventname);
         TextView eDescription = findViewById(R.id.todoeventdescription);
         TextView eDate = findViewById(R.id.todoeventdate);
 
-        eName.setText(eventName);
-        eDescription.setText(eventDescription);
-        eDate.setText(eventDate);
+        eName.setText(todoeventName);
+        eDescription.setText(todoeventDescription);
+        eDate.setText(todoeventDate);
 
-
-        /*
-
-        TextView eDescription = (TextView) findViewById(R.id.todoeventdescription);
-        TextView eDate = (TextView) findViewById(R.id.todoeventdate);
-        //TextView eTime = (TextView) findViewById(R.id.todoeventtime);
-
-        eName.setText(eventName);
-        eDescription.setText(eventDescription);
-        eDate.setText(eventDate);
-        //eTime.setText(eventTime);
-*/
         delete_button = (Button) findViewById(R.id.deletetodoEventButton);
         delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatabaseHelper.deleteName(eventName);
+                mDatabaseHelper.deleteName(todoeventName);
 
                 Intent intent = new Intent(todoDescription.this, MainActivity.class);
-                intent.putExtra("tab_index", "2");
+                intent.putExtra("tab_index", "1");
                 startActivity(intent);
 
             }
 
         });
+
+        edit_button = (Button) findViewById(R.id.edittodoEventButton);
+        edit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(todoDescription.this, AddtodoActivity.class);
+                intent.putExtra("edit_button", "edit");
+                intent.putExtra("name", todoeventName);
+                intent.putExtra("description", todoeventDescription);
+                intent.putExtra("date", todoeventDate);
+
+                startActivity(intent);
+            }
+        });
+
 
     }
 
