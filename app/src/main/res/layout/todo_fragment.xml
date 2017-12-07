@@ -7,9 +7,14 @@
     tools:context=".EventsTab">
 
     <Button
-        android:id="@+id/hwkbox"
-        android:text="@string/event"
+        android:id="@+id/addtodoEvent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent">
-    </Button>
+        android:text="+"></Button>
+
+    <ListView
+        android:id="@+id/todoeventList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </LinearLayout>
