@@ -88,6 +88,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return data;
     }
 
+    public Cursor getItemFromDate(String date){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + COL1 + "," + COL2 + "," + COL3 + "," + COL4 + "," + COL5 + " FROM " + TABLE_NAME +
+                " WHERE " + COL4 + " = '" + date + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+
     /**
      * Updates event
      */
