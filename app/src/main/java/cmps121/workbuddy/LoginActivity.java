@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private String eventDescription;
     private String eventName;
     private String eventTime;
+    String ACCESS_TOKEN = "";
 
 
     //Save to file to save info. Based on Professor's sample code
@@ -57,9 +58,8 @@ public class LoginActivity extends AppCompatActivity {
                     // write the contents to the file
 
                     EditText editText = (EditText)findViewById(R.id.AccessToken);
-                    String text = editText.getText().toString();
-
-
+                    ACCESS_TOKEN = editText.getText().toString();
+                    Log.d(TAG,ACCESS_TOKEN);
                     // close the file
 
                     out.close();
@@ -99,7 +99,6 @@ public class LoginActivity extends AppCompatActivity {
     private void addCanvasData(){
         Retrofit retrofit = null;
         String BASE_URL = "https://canvas.ucsc.edu/ ";
-        String ACCESS_TOKEN = "9270~DcNmfuBDyuifVzDb9jlQYcoPwwGXR5SjpjAxNHok3xUcnSOSi5MgBR4dbjXbySiu";
 
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
@@ -114,8 +113,14 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Assignment>>() {
             @Override
             public void onResponse(Call<List<Assignment>> call, Response<List<Assignment>> response) {
-
-                setPost(response.body().get(0));
+               Integer i = 0;
+               for(i = 0; i < 6; i++) {
+                   setPost(response.body().get(i));
+               }
+               /* while(response.body().get(i) != null ) {
+                    setPost(response.body().get(i));
+                    i++;
+                }*/
             }
 
             @Override
