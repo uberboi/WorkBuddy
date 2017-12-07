@@ -14,7 +14,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.OutputStreamWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cmps121.workbuddy.model.Assignment;
@@ -26,7 +29,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.ContentValues.TAG;
-
 /**
  * Created by han.nguyen on 11/14/17.
  */
@@ -131,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Assignment>> call, Response<List<Assignment>> response) {
                Integer i = 0;
-               for(i = 0; i < 6; i++) {
+               for(i = 0; i < 7; i++) {
                    setPost(response.body().get(i));
                }
                /* while(response.body().get(i) != null ) {
@@ -149,13 +151,47 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     private void setPost(Assignment assign) {
+        Log.e("blah", assign.getName().toString());
 
         eventName = (assign.getName().toString());
         eventDescription = (assign.getDescription().toString());
-        eventDate = "12/8/17";
+        eventDate = "";
         eventTime = "10:00PM";
+        String test;
+        if(assign.getDueAt()!=null) {
+            test = (assign.getDueAt().toString());
+            SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            Date blah = new Date();
+            try {
+                blah = jsonParse(test);
+                Log.e("blah", String.valueOf(blah));
+                String blahString = df.format(blah);
+                Log.e("blah2", blahString);
+                eventDate = blahString;
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         mDatabaseHelper.addData(eventName, eventDescription, eventDate, eventTime);
 
+
+    }
+
+    public Date jsonParse(String input ) throws java.text.ParseException {
+        SimpleDateFormat df = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssz" );
+        if ( input.endsWith( "Z" ) ) {
+            input = input.substring( 0, input.length() - 1) + "GMT-00:00";
+        } else {
+            int inset = 6;
+
+            String s0 = input.substring( 0, input.length() - inset );
+            String s1 = input.substring( input.length() - inset, input.length() );
+
+            input = s0 + "GMT" + s1;
+        }
+
+        return df.parse( input );
 
     }
 
