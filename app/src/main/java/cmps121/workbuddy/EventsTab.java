@@ -19,6 +19,15 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import cmps121.workbuddy.model.Assignment;
+import cmps121.workbuddy.rest.AssignmentApiService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.ContentValues.TAG;
 import static android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE;
@@ -60,12 +69,53 @@ public class EventsTab extends Fragment {
         });
 
         listview = (ListView) rootView.findViewById(R.id.eventList);
+        addCanvasData();
         populateListView();
 
 
         return rootView;
     }
 
+    private void addCanvasData(){
+        Retrofit retrofit = null;
+        String BASE_URL = "https://canvas.ucsc.edu/ ";
+        String ACCESS_TOKEN = "9270~DcNmfuBDyuifVzDb9jlQYcoPwwGXR5SjpjAxNHok3xUcnSOSi5MgBR4dbjXbySiu";
+
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+
+        AssignmentApiService assignmentapiservice = retrofit.create(AssignmentApiService.class);
+
+        Call<List<Assignment>> call = assignmentapiservice.getAssignments(ACCESS_TOKEN);
+        call.enqueue(new Callback<List<Assignment>>() {
+            @Override
+            public void onResponse(Call<List<Assignment>> call, Response<List<Assignment>> response) {
+
+                setPost(response.body().get(0));
+            }
+
+            @Override
+            public void onFailure(Call<List<Assignment>> call, Throwable throwable) {
+                Log.e(TAG, throwable.toString());
+            }
+        });
+
+
+    }
+    private void setPost(Assignment assign) {
+
+        eventName = (assign.getName().toString());
+        eventDescription = (assign.getDescription().toString());
+        eventDate = "12/8/17";
+        eventTime = "9:00PM";
+        mDatabaseHelper.addData(eventName, eventDescription, eventDate, eventTime);
+
+
+    }
     private void populateListView(){
         Cursor data = mDatabaseHelper.getData();
         listItems  = new ArrayList<String>();
