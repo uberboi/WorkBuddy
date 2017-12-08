@@ -21,6 +21,7 @@ public class Alarm extends AppCompatActivity {
     TimePicker alarm_picker;
     Context context;
     PendingIntent pendingIntent;
+    public Button calendar_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,17 @@ public class Alarm extends AppCompatActivity {
                     sendBroadcast(alarmIntent);
                 }
             }
+        });
+
+        calendar_button = (Button) findViewById(R.id.calendarButton);
+        calendar_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Alarm.this, MainActivity.class);
+                startActivity(intent);
+
+            }
+
         });
     }
 

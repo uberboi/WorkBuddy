@@ -29,5 +29,14 @@
         android:layout_below="@+id/timePicker"
         android:layout_marginEnd="11dp"
         android:layout_marginRight="11dp" />
+
+    <Button
+        android:id="@+id/calendarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="Calendar" />
 </RelativeLayout>
 
